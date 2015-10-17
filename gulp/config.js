@@ -5,8 +5,8 @@ export default {
     port: 3000,
   },
   
-  scripts: {
-    src: ['routes/*', 'app.js']
-  }
+  // All JS files in application
+  // Excludes dependencies / transpiled JS
+  scripts: ['**/*.js', 'bin/www', '!node_modules/**/*', '!dist/**/*']
 
 }

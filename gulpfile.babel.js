@@ -1,5 +1,5 @@
 /**
- * Module/Dependencies
+ * Modules/Dependencies
  * ===================
 **/
 import gulp from 'gulp';
@@ -25,7 +25,27 @@ gulp.task('serve', () => {
   console.log('Server listening on port 3000');
   server.run([config.serve.app]);
   // Restart server on .js file change
-  gulp.watch([config.scripts.src], [server.run]);
+  gulp.watch([config.scripts], ['eslint', 'babelify', server.run]);
+
+});
+
+// ES6/JS Tasks
+// ------------
+gulp.task('babelify', () => {
+  
+  return gulp.src(config.scripts)
+    .pipe($.sourcemaps.init())
+    .pipe($.babel())
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist'));
+
+});
+
+gulp.task('eslint', () => {
+  
+  return gulp.src(config.scripts)
+    .pipe($.eslint())
+    .pipe($.eslint.format());
 
 });
 
@@ -35,6 +55,8 @@ gulp.task('serve', () => {
 **/
 gulp.task('dev',
   [
+    'eslint',
+    'babelify',
     'serve'
   ]
 );
