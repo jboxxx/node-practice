@@ -4,7 +4,6 @@
 **/
 import gulp from 'gulp';
 import server from 'gulp-express';
-import gls from 'gulp-live-server';
 import config from './gulp/config.js';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
