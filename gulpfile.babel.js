@@ -3,8 +3,6 @@
  * ===================
 **/
 import gulp from 'gulp';
-// import server from 'gulp-express';
-// import server from 'gulp-express';
 import config from './gulp/config.js';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
@@ -22,15 +20,15 @@ const $ = gulpLoadPlugins(pluginConfig);
 **/
 gulp.task('serve', () => {
 
-  let server = $.liveServer.new([ config.serve.app ]);
-  server.start();
-
   // Run server on port 3000
   console.log('Server listening on port 3000');
-  // server.run([ config.serve.app ]);
+  let server = $.liveServer.new([ config.serve.app ]);
+  server.start();
   // Restart server on .js file change
-  // gulp.watch([ config.scripts ], [ 'eslint', 'babelify', server.run ]);
-  gulp.watch([ config.scripts ], [ 'eslint', 'babelify', server.start.bind(server) ]);
+  gulp.watch(
+    [ config.scripts ],
+    [ 'eslint', 'babelify', server.start.bind(server) ]
+  );
 
 });
 
