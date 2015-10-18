@@ -3,13 +3,14 @@
  * ===================
 **/
 import gulp from 'gulp';
-import server from 'gulp-express';
+// import server from 'gulp-express';
+// import server from 'gulp-express';
 import config from './gulp/config.js';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
 let pluginConfig = {
-  pattern: ['gulp-*', 'gulp.*'],
-  replaceString: /\bgulp[\-.]/,
+  pattern: [ 'gulp-*', 'gulp.*' ],
+  replaceString: /\bgulp[ \-. ]/,
   lazy: false,
   camelize: true
 };
@@ -21,18 +22,22 @@ const $ = gulpLoadPlugins(pluginConfig);
 **/
 gulp.task('serve', () => {
 
+  let server = $.liveServer.new([ config.serve.app ]);
+  server.start();
+
   // Run server on port 3000
   console.log('Server listening on port 3000');
-  server.run([config.serve.app]);
+  // server.run([ config.serve.app ]);
   // Restart server on .js file change
-  gulp.watch([config.scripts], ['eslint', 'babelify', server.run]);
+  // gulp.watch([ config.scripts ], [ 'eslint', 'babelify', server.run ]);
+  gulp.watch([ config.scripts ], [ 'eslint', 'babelify', server.start.bind(server) ]);
 
 });
 
 // ES6/JS Tasks
 // ------------
 gulp.task('babelify', () => {
-  
+
   return gulp.src(config.scripts)
     .pipe($.sourcemaps.init())
     .pipe($.babel())
@@ -42,7 +47,7 @@ gulp.task('babelify', () => {
 });
 
 gulp.task('eslint', () => {
-  
+
   return gulp.src(config.scripts)
     .pipe($.eslint())
     .pipe($.eslint.format());
