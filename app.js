@@ -1,11 +1,13 @@
 /**
  * Modules/Dependencies
- * ===================
+ * ====================
 **/
 import path from 'path';
 import logger       from 'morgan';
 import express      from 'express';
+import mongoose     from 'mongoose';
 import bodyParser   from 'body-parser';
+import db           from './config/db.js';
 import favicon      from 'serve-favicon';
 import cookieParser from 'cookie-parser';
 import livereload   from 'connect-livereload';
@@ -29,6 +31,12 @@ app.use(livereload({ port: '35729' }));
 
 app.use('/', routes);
 app.use('/users', users);
+
+// DB connection
+mongoose.connect(`mongodb://${db.user}:${db.pw}@${db.path}`);
+mongoose.connection.on('connected', () => console.log('Connected to Database'));
+mongoose.connection.on('error', console.log);
+mongoose.connection.on('disconnected', console.log);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

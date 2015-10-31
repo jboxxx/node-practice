@@ -3,7 +3,7 @@
  * ===================
 **/
 import gulp from 'gulp';
-import config from './gulp/config.js';
+import config from './config/gulp.js';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
 let pluginConfig = {
