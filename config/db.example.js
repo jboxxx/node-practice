@@ -1,7 +1,7 @@
 export default {
 
-  user: 'FILL-ME-IN',
-  pw: 'FILL-ME-IN',
+  user: 'hoodsy',
+  pw: '#thatsmeta',
   path: 'ds045464.mongolab.com:45464/mepracticenode'
 
 };
