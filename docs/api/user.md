@@ -2,6 +2,8 @@
 #### Properties
 ```
 User          - object
+User.timeJoined - Datetime
+User.lastConnected - Datetime
 User.id       - int
 User.username - string
 User.password - string
